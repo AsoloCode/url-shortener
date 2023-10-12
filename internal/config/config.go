@@ -8,8 +8,9 @@ import (
 )
 
 type Config struct {
-	Env        string `yaml:"ENV" env-default:"local"`
-	HTTPServer `yaml:"http_server"`
+	Env         string `yaml:"ENV" env-default:"local"`
+	StoragePath string `yaml:"storage_path" env-default:"/Users/artemsolovev/Desktop/GoPostgres/storage/storage.db"`
+	HTTPServer  `yaml:"http_server"`
 }
 
 type HTTPServer struct {
@@ -20,6 +21,7 @@ type HTTPServer struct {
 
 func MustLoad() *Config {
 	configPath := os.Getenv("CONFIG_PATH")
+	configPath = "/Users/artemsolovev/Desktop/GoPostgres/config/local.yaml"
 	if configPath == "" {
 		log.Fatal("CONFIG PATH is not sell")
 	}

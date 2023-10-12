@@ -3,7 +3,7 @@ package main
 import (
 	"GoPostgres/internal/config"
 	"GoPostgres/internal/lib/sl"
-	"GoPostgres/storage/sqlite"
+	"GoPostgres/internal/storage/sqlite"
 	"fmt"
 	"log/slog"
 	"os"
@@ -26,11 +26,17 @@ func main() {
 	log.Debug("debug messages are enable")
 
 	//TODO: init storage : Postgres
-	storage, err := sqlite.New()
+	storage, err := sqlite.New(cfg.StoragePath)
 	if err != nil {
 		log.Error("failed to init storage", sl.Err(err))
 		os.Exit(1)
 	}
+	//id, err := storage.SaveUrl("https://www.google.com/", "google")
+	//if err != nil {
+	//	log.Error("failed to save url", sl.Err(err))
+	//	os.Exit(1)
+	//}
+	//log.Info("saved url", slog.Int64("id", id))
 	_ = storage
 
 	//TODO: init router : chi "chi render"
