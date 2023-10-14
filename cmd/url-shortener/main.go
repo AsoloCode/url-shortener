@@ -5,6 +5,8 @@ import (
 	"GoPostgres/internal/lib/sl"
 	"GoPostgres/internal/storage/sqlite"
 	"fmt"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"log/slog"
 	"os"
 )
@@ -40,6 +42,13 @@ func main() {
 	_ = storage
 
 	//TODO: init router : chi "chi render"
+	router := chi.NewRouter()
+
+	//middleware
+	router.Use(middleware.RequestID)
+	router.Use(middleware.Logger)
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.URLFormat)
 
 	//TODO: init server
 
