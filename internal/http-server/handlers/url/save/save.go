@@ -15,9 +15,10 @@ import (
 )
 
 type Request struct {
-	URL   string `json:"Url" validate:"required, Url"`
+	URL   string `json:"url" validate:"required,url"`
 	Alias string `json:"alias,omitempty"`
 }
+
 type Response struct {
 	resp.Response
 	Alias string `json:"alias,omitempty"`
@@ -29,6 +30,8 @@ type URLSaver interface {
 
 const aliasLength = 6
 
+//go:generate go run github.com/vektra/mockery/v2@v2.28.2 --name=URLSaver
+
 func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
 		const op = "handlers.url.save.New"
@@ -39,7 +42,7 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 		)
 		var req Request
 
-		err := render.DecodeJSON(request.Body, &request)
+		err := render.DecodeJSON(request.Body, &req)
 		if errors.Is(err, io.EOF) {
 			log.Error("request body is empty")
 
@@ -49,7 +52,6 @@ func New(log *slog.Logger, urlSaver URLSaver) http.HandlerFunc {
 		}
 		if err != nil {
 			log.Error("failed to decode request body", sl.Err(err))
-
 			render.JSON(writer, request, resp.Error("failed to decode request")) // <----
 
 			return
