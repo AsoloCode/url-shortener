@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/GoPostgres.iml" filepath="$PROJECT_DIR$/.idea/GoPostgres.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/url-shortener.iml" filepath="$PROJECT_DIR$/.idea/url-shortener.iml" />
     </modules>
   </component>
 </project>

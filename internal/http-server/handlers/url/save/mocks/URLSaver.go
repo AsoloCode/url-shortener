@@ -9,6 +9,11 @@ type URLSaver struct {
 	mock.Mock
 }
 
+func (_m *URLSaver) SaveURL(urlToSave string, alias string) (int64, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
 // SaveUrl provides a mock function with given fields: urlToSave, alias
 func (_m *URLSaver) SaveUrl(urlToSave string, alias string) (int64, error) {
 	ret := _m.Called(urlToSave, alias)
